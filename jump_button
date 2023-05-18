@@ -1,0 +1,25 @@
+local player = game.Players.LocalPlayer
+
+local function setupJump(character)
+    local humanoid = character:WaitForChild("Humanoid")
+    humanoid.JumpPower = 50
+    humanoid.JumpHeight = 7.2
+    humanoid.Jump = true
+    character.Humanoid.Died:Connect(function()
+        wait(3)
+        setupJump(character)
+    end)
+end
+
+if player.Character then
+    setupJump(player.Character)
+end
+
+player.CharacterAdded:Connect(function(character)
+    setupJump(character)
+end)
+
+game.StarterGui:SetCore("SendNotification", {
+    Title = "Script Loaded",
+    Text = "Script made by @zephyr_scripts"
+})
